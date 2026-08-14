@@ -21,13 +21,13 @@ jobs:
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '8.0.x'
+          dotnet-version: '8.x'
 
       - name: Build with dotnet
-        run: dotnet build ./AIChatApi/EnterpriseAIAssistant.API.csproj --configuration Release
+        run: dotnet build --configuration Release
 
       - name: dotnet publish
-        run: dotnet publish ./AIChatApi/EnterpriseAIAssistant.API.csproj -c Release -o "${{env.DOTNET_ROOT}}/myapp"
+        run: dotnet publish -c Release -o "${{env.DOTNET_ROOT}}/myapp"
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
@@ -38,7 +38,6 @@ jobs:
   deploy:
     runs-on: windows-latest
     needs: build
-    
     permissions:
       id-token: write #This is required for requesting the JWT
       contents: read #This is required for actions/checkout
@@ -52,9 +51,9 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_1D3673BE16BA444E9D77DD9507FFEF8D }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_8D63B25E5D9C4A6ABF690B95E07B5F88 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_57D4EA00D817450DB438A8864D358F12 }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_BB91E9DA637745A1BE022FF5E71FC619 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_C438ADA534FC482F8F4596318868FDBE }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_8796AA0907DA414F868220E4BBA981A8 }}
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
