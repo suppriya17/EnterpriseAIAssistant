@@ -43,6 +43,11 @@ namespace EnterpriseAIAssistant.API.Services
 
             var response = await client.PostAsync("https://api.openai.com/v1/chat/completions", content);
             var responseJson = await response.Content.ReadAsStringAsync();
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception(
+                    $"OpenAI API failed. StatusCode: {(int)response.StatusCode}, Response: {responseJson}");
+            }
             var openAIResponse = JsonSerializer.Deserialize<OpenAIResponseDto>(responseJson);
             if (openAIResponse==null|| openAIResponse.Choices ==null|| openAIResponse.Choices.Count==0)
             {
