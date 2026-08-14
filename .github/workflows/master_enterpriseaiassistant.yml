@@ -24,10 +24,10 @@ jobs:
           dotnet-version: '8.0.x'
 
       - name: Build with dotnet
-        run: dotnet build ./AIChatApi/AIChatApi.csproj --configuration Release
+        run: dotnet build ./AIChatApi/EnterpriseAIAssistant.API.csproj --configuration Release
 
       - name: dotnet publish
-        run: dotnet publish ./AIChatApi/AIChatApi.csproj -c Release -o "${{env.DOTNET_ROOT}}/myapp"
+        run: dotnet publish ./AIChatApi/EnterpriseAIAssistant.API.csproj -c Release -o "${{env.DOTNET_ROOT}}/myapp"
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
